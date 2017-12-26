@@ -3,7 +3,7 @@
 #
 
 FROM alpine:latest
-MAINTAINER kev <chanfried.chung@gmail.com>
+MAINTAINER chanfried.chung <chanfried.chung@gmail.com>
 
 RUN apk --no-cache add privoxy \
     && rm -rf /var/cache/apk/*
