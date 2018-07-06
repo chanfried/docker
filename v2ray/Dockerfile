@@ -2,7 +2,7 @@
 # Dockerfile for v2ray
 #
 
-FROM centos:latest
+FROM golang:latest
 MAINTAINER chanfried.chung <chanfried.chung@gmail.com>
 
 ADD https://storage.googleapis.com/v2ray-docker/v2ray /usr/bin/v2ray/
