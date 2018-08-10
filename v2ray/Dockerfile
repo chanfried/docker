@@ -10,9 +10,6 @@ FROM alpine:latest
 
 LABEL maintainer "Chanfried Chung <chanfried.chung@gmail.com>"
 
-ARG TZ='Asia/Shanghai'
-ENV TZ $TZ
-
 COPY --from=builder /usr/bin/v2ray/v2ray /usr/bin/v2ray/
 COPY --from=builder /usr/bin/v2ray/v2ctl /usr/bin/v2ray/
 COPY --from=builder /usr/bin/v2ray/geoip.dat /usr/bin/v2ray/
@@ -23,9 +20,7 @@ RUN set -ex && \
     apk --no-cache add ca-certificates && \
     mkdir /var/log/v2ray/ &&\
     chmod +x /usr/bin/v2ray/v2ctl && \
-    chmod +x /usr/bin/v2ray/v2ray && \
-	ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
-	echo $TZ > /etc/timezone
+    chmod +x /usr/bin/v2ray/v2ray
 	
 ENV PATH /usr/bin/v2ray:$PATH
 
