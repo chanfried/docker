@@ -8,6 +8,11 @@ on:   # 配置触发workflow的事件
     tags:       # tag更新时触发此workflow
       - '*'
 
+env:
+  APP_NAME: privoxy
+  DOCKERHUB_REPO: chanfried/privoxy
+  APP_VERSION: 3.0.34
+
 jobs:  # workflow中的job
 
   push_to_registry:  # job的名字
@@ -28,15 +33,18 @@ jobs:  # workflow中的job
         id: meta
         uses: docker/metadata-action@v3  # 抽取项目信息，主要是镜像的tag
         with:
-          images: chanfried/privoxy
+          images: ${{ env.DOCKERHUB_REPO }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2 # docker build & push
         with:
+          build-args: |
+            APP_NAME=${{ env.APP_NAME }}
+            APP_VERSION=${{ env.APP_VERSION }}
           context: .
           file: ./privoxy/Dockerfile
           push: true
           tags: |
-            chanfried/privoxy:${{ steps.date.outputs.today }}
-            chanfried/privoxy:latest
+            ${{ env.DOCKERHUB_REPO }}:latest
+            ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
           #labels: ${{ steps.meta.outputs.labels }}
