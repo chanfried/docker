@@ -36,5 +36,7 @@ jobs:  # workflow中的job
           context: .
           file: ./privoxy/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            chanfried/privoxy:${{ steps.date.outputs.today }}
+            chanfried/privoxy:latest
+          #labels: ${{ steps.meta.outputs.labels }}
